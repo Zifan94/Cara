@@ -1,0 +1,2 @@
+[0]		[1]		[2]-----[31]		[32]		[33]				[34]			[35]-----[46]  
+Date	Close	day-1 ~ day-30		is_ER		day_before_ER		day_after_ER	Jan~Dec
