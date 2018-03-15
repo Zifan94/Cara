@@ -111,58 +111,58 @@ if __name__ == "__main__":
     assert nvdaDB.shape[0]-30-offset == train_Y.shape[0]
 
     # Using Linear Regression
-    # date_X = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
-    # date_cnt = 1
-    # test_Y = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
-    # pred_Y = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
-    # for i in range(500, nvdaDB.shape[0]-30-offset-1):
-    #     tmp_train_X = train_X[i:,]
-    #     tmp_train_Y = train_Y[i:,]
-    #     linearReg = LinearRegression()
-    #     linearReg.fit(tmp_train_X, tmp_train_Y)
-    #     tmp_test_X = train_X[i+1,]
-    #     tmp_test_Y = train_Y[i+1][0]
-    #     pred_Y[i-500][0] = (linearReg.predict(tmp_test_X.reshape(1, -1))[0][0])
-    #     test_Y[i-500][0] = (tmp_test_Y)
-    #     date_X[i-500][0] = date_cnt
-    #     date_cnt += 1
+    date_X = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
+    date_cnt = 1
+    test_Y = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
+    pred_Y = zeros((nvdaDB.shape[0]-30-offset-1-500, 1))
+    for i in range(500, nvdaDB.shape[0]-30-offset-1):
+        tmp_train_X = train_X[0:i,]
+        tmp_train_Y = train_Y[0:i,]
+        linearReg = LinearRegression()
+        linearReg.fit(tmp_train_X, tmp_train_Y)
+        tmp_test_X = train_X[i+1,]
+        tmp_test_Y = train_Y[i+1][0]
+        pred_Y[i-500][0] = (linearReg.predict(tmp_test_X.reshape(1, -1))[0][0])
+        test_Y[i-500][0] = (tmp_test_Y)
+        date_X[i-500][0] = date_cnt
+        date_cnt += 1
 
-    # sum = 0
-    # for i in range(0, test_Y.shape[0]):
-    #     dis = test_Y[i][0] - pred_Y[i][0]
-    #     disSq = dis * dis
-    #     sum += disSq
-    # MSE = sum / test_Y.shape[0]
-    # print("")
-    # print("Min Squared Error: "+str(round(sqrt(MSE), 2)))
-    # print("")
+    sum = 0
+    for i in range(0, test_Y.shape[0]):
+        dis = test_Y[i][0] - pred_Y[i][0]
+        disSq = dis * dis
+        sum += disSq
+    MSE = sum / test_Y.shape[0]
+    print("")
+    print("Min Squared Error: "+str(round(sqrt(MSE), 2)))
+    print("")
 
-    # print("dateCnt data X: "+str(date_X.shape))
-    # print("testing data Y: "+str(test_Y.shape))
-    # print("predict data Y: "+str(pred_Y.shape))
+    print("dateCnt data X: "+str(date_X.shape))
+    print("testing data Y: "+str(test_Y.shape))
+    print("predict data Y: "+str(pred_Y.shape))
 
 
-    # # Plot
-    # fig, ax = plt.subplots()
-    # plt.plot(date_X, test_Y, 'r', label = "target", lw=2)
-    # plt.plot(date_X, pred_Y, 'b', label = "predict", lw=1)
-    # plt.legend(loc = 0)
-    # plt.show()
+    # Plot
+    fig, ax = plt.subplots()
+    plt.plot(date_X, test_Y, 'r', label = "target", lw=2)
+    plt.plot(date_X, pred_Y, 'b', label = "predict", lw=1)
+    plt.legend(loc = 0)
+    plt.show()
 
 
     # Actual predict
-    linearReg = LinearRegression()
-    linearReg.fit(train_X, train_Y)
-    print(pred_date)
-    test_X = X = zeros((1, 45))
-    for i in range(0, 29):
-        test_X[0][i+1] = train_X[-1][i]
-    test_X[0][0] = train_Y [-1][0]
-    test_X[0][30] = 0
-    test_X[0][31] = train_X[-1][31]-1
-    test_X[0][32] = train_X[-1][32]+1
-    col = int(pred_date.month)
-    test_X[0][32+col] = 1.0
-    ans = linearReg.predict(test_X.reshape(1, -1))[0][0]
-    print(test_X)
-    print(ans)
+    # linearReg = LinearRegression()
+    # linearReg.fit(train_X, train_Y)
+    # print(pred_date)
+    # test_X = X = zeros((1, 45))
+    # for i in range(0, 29):
+    #     test_X[0][i+1] = train_X[-1][i]
+    # test_X[0][0] = train_Y [-1][0]
+    # test_X[0][30] = 0
+    # test_X[0][31] = train_X[-1][31]-1
+    # test_X[0][32] = train_X[-1][32]+1
+    # col = int(pred_date.month)
+    # test_X[0][32+col] = 1.0
+    # ans = linearReg.predict(test_X.reshape(1, -1))[0][0]
+    # print(test_X)
+    # print(ans)
