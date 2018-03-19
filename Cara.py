@@ -140,10 +140,12 @@ def LinearRegressionEvalue():
 
 
 def LinearRegressionActualPredict():
+    print("")
+    print(red("CARA: Predicting The Latest Price..."))
     # Actual predict
     linearReg = LinearRegression()
     linearReg.fit(train_X, train_Y)
-    print(pred_date)
+    
     test_X = X = zeros((1, 45))
     for i in range(0, 29):
         test_X[0][i+1] = train_X[-1][i]
@@ -154,8 +156,12 @@ def LinearRegressionActualPredict():
     col = int(pred_date.month)
     test_X[0][32+col] = 1.0
     ans = linearReg.predict(test_X.reshape(1, -1))[0][0]
-    print(test_X)
-    print(ans)
+    print("  Constructing tomorrow's input vector:")
+    print("\n   "+str(test_X))
+    print("\n  Predicting Result:")
+    print(blue("    Date:             ")+str(pred_date))
+    print(blue("    Prediction Price: ")+str(ans))
+    print("")
 
 
 def get_Y_cls(Y_cls):
@@ -259,6 +265,11 @@ if __name__ == "__main__":
     print(blue("  Matrix Calibration ")+green("Complete"))
 
     # LinearRegressionEvalue()
-    # LinearRegressionActualPredict()
+    LinearRegressionActualPredict()
     
-    SVMEvalue()
+    # SVMEvalue()
+
+
+    print("")
+    print(red("CARA: All Jobs Done, Quit Now"))
+    print("")
